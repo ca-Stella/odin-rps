@@ -9,59 +9,61 @@
 <body>
   <script>
     const choices = ['Rock', 'Paper', 'Scissors'];
+
     // helper function - capitalize first letter only
     function formatString(string) {
-    formatted = string.trim().charAt(0).toUpperCase() + string.trim().slice(1).toLowerCase();
+    formatted = string.trim().charAt(0).toUpperCase() + 
+        string.trim().slice(1).toLowerCase();
     return formatted;
     }
-
+    
     // computerPlay function to randomly select
     function computerPlay(array) {
       let randomNumber = Math.floor(Math.random() * array.length);
       return array[randomNumber];
     }
 
-    // RPS function to play a round 
+    // playRound() function to play a round of RPS
     let results = 0;
-    function playRound(playerSelection, computerSelection) {
-      if (playerSelection !== 'Rock' && playerSelection !== 'Paper' && playerSelection !== 'Scissors') {
+    function playRound(pSelection, cSelection) {
+      if (pSelection !== 'Rock' && pSelection !== 'Paper' && pSelection !== 'Scissors') {
         results = 4;
-      } else if (playerSelection === computerSelection) {
+      } else if (pSelection === cSelection) {
         results = 2;
       } else {
-        if (computerSelection === 'Rock') {
-          results = (playerSelection === 'Paper') ?  1 : 3 ;
-        } else if (computerSelection === 'Paper') {
-          results = (playerSelection === 'Scissors') ?  1 : 3 ;
-        } else if (computerSelection === 'Scissors') {
-          results = (playerSelection === 'Paper') ?  3 : 1 ;
+        if (cSelection === 'Rock') {
+          results = (pSelection === 'Paper') ?  1 : 3 ;
+        } else if (cSelection === 'Paper') {
+          results = (pSelection === 'Scissors') ?  1 : 3 ;
+        } else if (cSelection === 'Scissors') {
+          results = (pSelection === 'Paper') ?  3 : 1 ;
         }
       }
       return results;
     }
+
     
     // game() function to play five rounds
-    let playerScore = 0;
-    let computerScore = 0;
-    let computerSelection = 'none';
+    let pScore = cScore = 0;
+    let cSelection = 'none';
 
     function game() {
       for (let i = 0; i < 5; i++) {
-        computerSelection = computerPlay(choices);
-        let playerSelection = formatString(window.prompt('choice: '));
-        let result = playRound(playerSelection, computerSelection);
+        cSelection = computerPlay(choices);
+        let pSelection = formatString(window.prompt('choice: '));
+        let result = playRound(pSelection, cSelection);
 
         switch (result) {
           case 2: 
             console.log("It's a tie!");
             break;
           case 1: 
-            console.log("You win! " + playerSelection + " beats " + computerSelection + "!");
-            playerScore++;
+            console.log("You win! " + pSelection + " beats " + cSelection + "!");
+            pScore++;
             break;
           case 3: 
-            console.log("You lose! " + computerSelection + " beats " + playerSelection + "!");
-            computerScore++;
+            console.log("You lose! " + cSelection + " beats " + pSelection + "!");
+            cScore++;
             break;
           default: 
             alert("please input one of Rock, Paper, or Scissors!");
@@ -69,7 +71,7 @@
         }
       }
 
-      let message = (playerScore > computerScore) ? ('You are a winner! You: ' + playerScore + ', Computer: ' + computerScore) : (playerScore < computerScore) ? ('You lost! You: ' + playerScore + ', Computer: ' + computerScore) :('You tied! You: ' + playerScore + ', Computer: ' + computerScore);
+      let message = (pScore > cScore) ? ('You are a winner! You: ' + pScore + ', Computer: ' + cScore) : (pScore < cScore) ? ('You lost! You: ' + pScore + ', Computer: ' + computerScore) : ('You tied! You: ' + pScore + ', Computer: ' + cScore);
 
       return message;
     }
