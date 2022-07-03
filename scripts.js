@@ -5,24 +5,38 @@ let pScore = cScore = 0;
 let cSelection = pSelection = 'none';
 
 // buttons
+const buttonRegion = document.querySelector('.choices');
 const rock = document.getElementById('rock');
 const paper = document.getElementById('paper');
 const scissors = document.querySelector('#scissors');
 
 // result elements
 const tallyResults = document.querySelector('.tally');
+const pCount = document.querySelector('.p-count');
+const cCount = document.querySelector('.c-count');
 const roundResults = document.querySelector('.round-results');
 
 // playRound for each button press
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('click', playRound));
 
+// playGame function to play only until winner determined
+function playGame() {
+    playRound(this.textContent);
+    if (pScore > 4 || cScore > 4) {
+        const finalResult = document.createElement('div');
+        let finalState = (pScore == 5) ? 'Player, congrats!' : 'Computer, better luck next time!';
+        finalResult.textContent = 'Winner is ' + finalState ;
+        buttons.forEach(button => buttonRegion.removeChild(button));
+        buttonRegion.insertBefore(finalResult, buttonRegion.firstChild);
+    }
+}
+
 // playRound() function to play a round of RPS
 function playRound(pSelection) {
-    pSelection = this.textContent;
     cSelection = computerPlay(choices);
     let result = checkWinner(pSelection, cSelection);
-    declareResults(result);
+    declareResult(result);
     tallyUp();
 }
 
@@ -51,11 +65,12 @@ function checkWinner(pSelection, cSelection) {
 
 // tallyUp() function to add scores
 function tallyUp() {
-    tallyResults.textContent = (pScore + '+' + cScore);
+    pCount.textContent = pScore;
+    cCount.textContent = cScore;
 }
 
-//declareResults() function to post results
-function declareResults(result) {
+//declareResult() function to post results
+function declareResult(result) {
     const sent = document.createElement('div');
     switch (result) {
         case 2: 
