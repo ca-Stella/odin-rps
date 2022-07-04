@@ -4,7 +4,7 @@
 
 Simple webpage of the game, rock paper scissors. Created as part of <a href="https://www.theodinproject.com/lessons/foundations-rock-paper-scissors">The Odin Project</a>. 
 
-[🔗 Live Demo](https://ca-stella.github.io/odin-landing_page/)
+[🔗 Live Demo](https://ca-stella.github.io/odin-rps/)
 
 ### Outcomes
 - Gained better understanding of JavaScript and functions
