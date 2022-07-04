@@ -1,14 +1,15 @@
 // variables
 const choices = ['Rock', 'Paper', 'Scissors'];
-let results = 0;
+let result = 0;
 let pScore = cScore = 0;
-let cSelection = pSelection = '';
+let cSelection = pSelection = pText = '';
 
 // buttons
 const buttonRegion = document.querySelector('.choices');
-const rock = document.getElementById('rock');
-const paper = document.getElementById('paper');
-const scissors = document.querySelector('#scissors');
+const rock = document.getElementById('Rock');
+const paper = document.getElementById('Paper');
+const scissors = document.querySelector('#Scissors');
+const btnTryAgain = document.createElement('button');
 
 // result elements
 const tallyResults = document.querySelector('.tally');
@@ -16,28 +17,39 @@ const pCount = document.querySelector('.p-count');
 const cCount = document.querySelector('.c-count');
 const roundResults = document.querySelector('.round-results');
 
-// playRound for each button press
+// playGame for each button press
 const buttons = document.querySelectorAll('button');
-buttons.forEach(button => button.addEventListener('click', playRound));
+buttons.forEach(button => button.addEventListener('click', playGame));
 
 // playGame function to play only until winner determined
 function playGame() {
-    pSelection = this.textContent;
-    playRound(pSelection);
+    pSelection = this.id;
+    pText = this.textContent;
+    playRound(pSelection, pText);
     if (pScore > 4 || cScore > 4) {
         const finalResult = document.createElement('div');
         let finalState = (pScore == 5) ? 'Player, congrats!' : 'Computer, better luck next time!';
         finalResult.textContent = 'Winner is ' + finalState ;
-        buttons.forEach(button => buttonRegion.removeChild(button));
+        finalResult.style.cssText = ('font-size: 20px; margin: 5px');
+        buttons.forEach(button => button.style.display = 'none');
         buttonRegion.insertBefore(finalResult, buttonRegion.firstChild);
+        btnTryAgain.textContent = 'Try Again';
+        buttonRegion.appendChild(btnTryAgain, buttonRegion.firstChild);
+        buttonRegion.style.cssText += ('flex-direction: column; justify-content: center; gap: 5px; border: none; border-radius: 10px; box-shadow: 0 0  1em 5px rgb(255, 196, 0)'); // box-shadow: 0 0 0 5pt gray; 
+        btnTryAgain.addEventListener('click', tryAnother);
     }
 }
 
+// tryAnother() function to Try again 
+function tryAnother() {
+    window.location.reload(true);
+}
+
 // playRound() function to play a round of RPS
-function playRound(pSelection) {
+function playRound(pSelection, pText) {
     cSelection = computerPlay(choices);
     let result = checkWinner(pSelection, cSelection);
-    declareResult(result);
+    declareResult(result, pText);
     tallyUp();
 }
 
@@ -54,11 +66,11 @@ function checkWinner(pSelection, cSelection) {
         result = 2;
     } else {
         if (cSelection === 'Rock') {
-            results = (pSelection === 'Paper') ?  1 : 3 ;
+            result = (pSelection === 'Paper') ?  1 : 3 ;
         } else if (cSelection === 'Paper') {
-            results = (pSelection === 'Scissors') ?  1 : 3 ;
+            result = (pSelection === 'Scissors') ?  1 : 3 ;
         } else if (cSelection === 'Scissors') {
-            results = (pSelection === 'Paper') ?  3 : 1 ;
+            result = (pSelection === 'Paper') ?  3 : 1 ;
         }
     }
     return result;
@@ -71,7 +83,7 @@ function tallyUp() {
 }
 
 //declareResult() function to post results
-function declareResult(result) {
+function declareResult(result, pText) {
     const sent = document.createElement('div');
     switch (result) {
         case 2: 
@@ -79,11 +91,11 @@ function declareResult(result) {
             break;
         case 1: 
             pScore++;
-            sent.textContent = ("You win! " + pSelection + " beats " + cSelection + "!");
+            sent.textContent = ("You win! " + pText + " beats " + cSelection + "!");
             break;
         case 3: 
             cScore++;
-            sent.textContent = ("You lose! " + cSelection + " beats " + pSelection + "!");
+            sent.textContent = ("You lose! " + cSelection + " beats " + pText + "!");
             break;
         default: 
             sent.textContent = ("Something's Wrong!");

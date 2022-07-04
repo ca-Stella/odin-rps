@@ -5,30 +5,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock Paper Scissors</title>
-  <script src="scripts.js"></script>
+  <script src="scripts.js" defer></script>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <h1>Rock Paper Scissors!</h1>
   <div class="choices">
-    <button id='rock' class="choice">Rock</button>
-    <button id='paper' class="choice">Paper</button>
-    <button id='scissors' class="choice">Scissors</button>
+    <button id='Rock' class="choice">✊</button>
+    <button id='Paper' class="choice">🖐</button>
+    <button id='Scissors' class="choice">✌️</button>
   </div>
   <div class="results">
     <h2>Results</h2>
     <div class="tally">
       <div class="player">
-        <div class="p-count"></div>
+        <div class="p-count">?</div>
         <div class="p-text">Player</div>
       </div>
       <div class="computer">
-        <div class="c-count"></div>
+        <div class="c-count">?</div>
         <div class="c-text">Computer</div>
       </div>
     </div>
     <h3>Rounds</h3>
-    <div class="round-results"></div>
+    <div class="roundbox">
+      <div class="round-results"></div>
+    </div>
   </div>
+  <footer>
+    Copyright 2022 © <a href="https://github.com/ca-Stella/odin-rps"> caStella</a>
+  </footer>
 </body>
 </html> 
