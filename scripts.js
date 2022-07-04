@@ -2,7 +2,7 @@
 const choices = ['Rock', 'Paper', 'Scissors'];
 let results = 0;
 let pScore = cScore = 0;
-let cSelection = pSelection = 'none';
+let cSelection = pSelection = '';
 
 // buttons
 const buttonRegion = document.querySelector('.choices');
@@ -22,7 +22,8 @@ buttons.forEach(button => button.addEventListener('click', playRound));
 
 // playGame function to play only until winner determined
 function playGame() {
-    playRound(this.textContent);
+    pSelection = this.textContent;
+    playRound(pSelection);
     if (pScore > 4 || cScore > 4) {
         const finalResult = document.createElement('div');
         let finalState = (pScore == 5) ? 'Player, congrats!' : 'Computer, better luck next time!';
